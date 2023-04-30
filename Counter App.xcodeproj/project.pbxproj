@@ -44,6 +44,7 @@
 		DFD35D5A29FECBF500C2876B /* Counter AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Counter AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFD35D5E29FECBF500C2876B /* Counter_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter_AppUITests.swift; sourceTree = "<group>"; };
 		DFD35D6029FECBF500C2876B /* Counter_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DFD35D6D29FF022900C2876B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +75,7 @@
 		DFD35D3729FECBF300C2876B = {
 			isa = PBXGroup;
 			children = (
+				DFD35D6D29FF022900C2876B /* README.md */,
 				DFD35D4229FECBF300C2876B /* Counter App */,
 				DFD35D5329FECBF500C2876B /* Counter AppTests */,
 				DFD35D5D29FECBF500C2876B /* Counter AppUITests */,
