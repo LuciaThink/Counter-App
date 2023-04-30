@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import AVFoundation
 
 extension Double {
     func removeZerosFromEnd() -> String {
@@ -16,6 +16,14 @@ extension Double {
         formatter.maximumFractionDigits = 16 //maximum digits in Double after dot (maximum precision)
         return String(formatter.string(from: number) ?? "")
     }
+}
+
+var player: AVAudioPlayer?
+
+
+func playSound() {
+    let systemSoundID: SystemSoundID = 1104  // the tweet sound. You can experiment with others
+    AudioServicesPlaySystemSound (systemSoundID) // // to play sound
 }
 
 struct ContentView: View {
@@ -33,6 +41,7 @@ struct ContentView: View {
             count -= 1.0
         }
         
+        playSound()
         checkVisible()
     }
     
@@ -46,18 +55,32 @@ struct ContentView: View {
     
     func resetCounter() {
         count = 0
+        playSound()
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
+        
+            Text("Counter")
+                .font(.system(size: 33))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 0.0)
+            
+            Spacer()
+            
             if showText {
+                Image("Dog")
                 Text("Wow you really pressed this \(Int(count)) times?")
                     .font(.system(size: 33))
                     .multilineTextAlignment(.center)
+                    .padding(.horizontal)
             }
             
             Text(String((count).removeZerosFromEnd()))
                 .font(.system(size: 100))
+                .padding(.horizontal)
+            
+            Spacer()
             
             Gauge(value: count, in: minValue...maxValue) {
                 Text("Progress")
@@ -68,8 +91,11 @@ struct ContentView: View {
             } maximumValueLabel: {
                 Text("\(Int(maxValue))%")
             }
+            .padding(.horizontal)
+            Spacer()
+                .frame(height: 100.0)
 
-            HStack {
+            HStack(alignment: .center) {
                 Button("Increment +1", action: {changeCount(direction: "+")} )
                     .buttonStyle(.borderedProminent)
                 Button("Decrement -1", action: {changeCount(direction: "-")} )
@@ -77,6 +103,8 @@ struct ContentView: View {
                 Button("Reset", action: {resetCounter()} )
                     .buttonStyle(.borderedProminent)
             }
+            .padding(.horizontal)
+            Spacer()
         }
         .padding()
         .onAppear(perform: checkVisible)
