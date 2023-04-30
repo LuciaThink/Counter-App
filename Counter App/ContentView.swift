@@ -33,19 +33,31 @@ struct ContentView: View {
             count -= 1.0
         }
         
-        if count == 100 {
-            showText.toggle()
+        checkVisible()
+    }
+    
+    func checkVisible(){
+        if count >= 100.00 {
+            showText = true
+        } else {
+            showText = false
         }
     }
-
+    
+    func resetCounter() {
+        count = 0
+    }
     
     var body: some View {
         VStack {
             if showText {
-                Text("Wow you really clicked this 100 times?")
+                Text("Wow you really pressed this \(Int(count)) times?")
                     .font(.system(size: 33))
                     .multilineTextAlignment(.center)
             }
+            
+            Text(String((count).removeZerosFromEnd()))
+                .font(.system(size: 100))
             
             Gauge(value: count, in: minValue...maxValue) {
                 Text("Progress")
@@ -57,18 +69,18 @@ struct ContentView: View {
                 Text("\(Int(maxValue))%")
             }
 
-
-            Text(String((count).removeZerosFromEnd()))
-                .font(.system(size: 100))
-
             HStack {
                 Button("Increment +1", action: {changeCount(direction: "+")} )
                     .buttonStyle(.borderedProminent)
                 Button("Decrement -1", action: {changeCount(direction: "-")} )
                     .buttonStyle(.borderedProminent)
+                Button("Reset", action: {resetCounter()} )
+                    .buttonStyle(.borderedProminent)
             }
         }
         .padding()
+        .onAppear(perform: checkVisible)
+        
     }
 }
 
