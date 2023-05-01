@@ -26,27 +26,31 @@ func playSound() {
     AudioServicesPlaySystemSound (systemSoundID) // // to play sound
 }
 
-struct ContentView: View {
+struct MainView: View {
     @State private var count: Double = 0
     @State private var showText = false
     @State private var minValue: Double = 0
     @State private var maxValue: Double = 100.0
-
-
+    @State private var selectedTabIndex = 0
     
     func changeCount(direction: String) {
-        if direction == "+" {
-            count += 1.0
-        } else {
-            count -= 1.0
-        }
+   
+            if direction == "+" {
+                if count < 100 {
+                    count += 1.0
+                }
+            } else {
+                if(count > 0) {
+                    count -= 1.0
+                }
+            }
         
         playSound()
         checkVisible()
     }
     
     func checkVisible(){
-        if count >= 100.00 {
+        if count == 100.00 {
             showText = true
         } else {
             showText = false
@@ -59,61 +63,88 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack(alignment: .center) {
         
-            Text("Counter")
-                .font(.system(size: 33))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 0.0)
-            
-            Spacer()
-            
-            if showText {
-                Image("Dog")
-                Text("Wow you really pressed this \(Int(count)) times?")
-                    .font(.system(size: 33))
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-            }
-            
-            Text(String((count).removeZerosFromEnd()))
-                .font(.system(size: 100))
-                .padding(.horizontal)
-            
-            Spacer()
-            
-            Gauge(value: count, in: minValue...maxValue) {
-                Text("Progress")
-            } currentValueLabel: {
-                Text("\(Int(count))%")
-            } minimumValueLabel: {
-                Text("\(Int(minValue))%")
-            } maximumValueLabel: {
-                Text("\(Int(maxValue))%")
-            }
-            .padding(.horizontal)
-            Spacer()
-                .frame(height: 100.0)
+        TabView() {
+            VStack {
+                VStack(alignment: .center, spacing: 0) {
+                
+                    Text("Counter")
+                        .font(.system(size: 33))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 0.0)
+                    
+                    Spacer()
+                    
+                    Image("Dog").opacity(showText ? 1 : 0)
+                    Text("Wow you really pressed this \(Int(count)) times?")
+                        .font(.system(size: 33))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal).opacity(showText ? 1 : 0)
+                        
+                    Text(String((count).removeZerosFromEnd()))
+                        .font(.system(size: 100))
+                        .padding(.horizontal)
+                    
 
-            HStack(alignment: .center) {
-                Button("Increment +1", action: {changeCount(direction: "+")} )
-                    .buttonStyle(.borderedProminent)
-                Button("Decrement -1", action: {changeCount(direction: "-")} )
-                    .buttonStyle(.borderedProminent)
-                Button("Reset", action: {resetCounter()} )
-                    .buttonStyle(.borderedProminent)
+                    Gauge(value: count, in: minValue...maxValue) {
+                        Text("Progress")
+                    } currentValueLabel: {
+                        Text("\(Int(count))%")
+                    } minimumValueLabel: {
+                        Text("\(Int(minValue))%")
+                    } maximumValueLabel: {
+                        Text("\(Int(maxValue))%")
+                    }
+                    .padding(.horizontal)
+                    
+                    Spacer()
+
+                    HStack(alignment: .center) {
+                        Button("Increment +1", action: {changeCount(direction: "+")} )
+                            .buttonStyle(.borderedProminent)
+                        Button("Decrement -1", action: {changeCount(direction: "-")} )
+                            .buttonStyle(.borderedProminent)
+                        Button("Reset", action: {resetCounter()} )
+                            .buttonStyle(.borderedProminent)
+                    }
+                    .padding(.horizontal)
+                    Spacer()
+                }
+                .padding()
+                .onAppear(perform: checkVisible)
+                
             }
-            .padding(.horizontal)
-            Spacer()
+            .tag(0)
+            .tabItem {
+                Label("Home", systemImage: "house")
+            }
+            
+            VStack(alignment: .center, spacing: 0) {
+                
+                    
+                    Text("About").font(.system(size: 33))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 0.0)
+                    
+                    Spacer()
+                        .frame(height: 50)
+                    
+                    Text("This is an application I built to help understand some of the basics for developing in swift.")
+                        .padding(.horizontal, 25.0)
+                    
+                
+            }
+            .tag(1)
+            .tabItem {
+                Label("About", systemImage: "gearshape")
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
         }
-        .padding()
-        .onAppear(perform: checkVisible)
-        
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainView()
     }
 }
