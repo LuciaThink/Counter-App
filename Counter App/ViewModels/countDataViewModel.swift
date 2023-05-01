@@ -25,8 +25,6 @@ class countDataViewModel: ObservableObject {
             self.countData = documents.map { (queryDocumentSnapshot) -> CountData in
                 let data = queryDocumentSnapshot.data()
                 let count = data["count"] as? Int ?? 0
-                print(queryDocumentSnapshot)
-                print(data)
                 return CountData(count: count)
             }
         }

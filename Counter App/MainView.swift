@@ -124,11 +124,8 @@ struct MainView: View {
                 .onReceive(countModel.$countData) { data in
                     if data.count > 0  {
                         count = Double(data[0].count)
-                        print(data[0].count)
                     }
                 }
-                
-                
             }
             .tag(0)
             .tabItem {
@@ -146,15 +143,11 @@ struct MainView: View {
                     .frame(height: 50.0)
                 
                 VStack {
-                        ForEach(viewModel.uiTextNodes) { uiTextNode in
-                            Text(uiTextNode.description).font(.title).multilineTextAlignment(.leading).padding([.top, .leading], 10.0)
-                        }
+                    ForEach(viewModel.uiTextNodes) { uiTextNode in
+                        Text(uiTextNode.description).font(.title).multilineTextAlignment(.leading).padding([.top, .leading], 10.0)
+                    }
                 }
-                
-
-                
                 Spacer()
-
             }
             .tag(1)
             .tabItem {
