@@ -7,7 +7,6 @@
 
 import SwiftUI
 import AVFoundation
-
 extension Double {
     func removeZerosFromEnd() -> String {
         let formatter = NumberFormatter()
@@ -32,24 +31,25 @@ struct MainView: View {
     @State private var minValue: Double = 0
     @State private var maxValue: Double = 100.0
     @State private var selectedTabIndex = 0
-    
+
     func changeCount(direction: String) {
-   
-            if direction == "+" {
-                if count < 100 {
-                    count += 1.0
-                }
-            } else {
-                if(count > 0) {
-                    count -= 1.0
-                }
+        
+        if direction == "+" {
+            if count < 100 {
+                count += 1.0
             }
+        } else {
+            if(count > 0) {
+                count -= 1.0
+            }
+        }
         
         playSound()
         checkVisible()
     }
     
     func checkVisible(){
+        print(viewModel)
         if count == 100.00 {
             showText = true
         } else {
@@ -62,12 +62,21 @@ struct MainView: View {
         playSound()
     }
     
+    @ObservedObject private var viewModel = uiDataViewModel()
+    
+    
+   
+    
     var body: some View {
         
+        
+        
         TabView() {
+        
+            
             VStack {
-                VStack(alignment: .center, spacing: 0) {
-                
+                VStack(alignment: .center) {
+                    
                     Text("Counter")
                         .font(.system(size: 33))
                         .multilineTextAlignment(.center)
@@ -76,6 +85,7 @@ struct MainView: View {
                     Spacer()
                     
                     Image("Dog").opacity(showText ? 1 : 0)
+                    
                     Text("Wow you really pressed this \(Int(count)) times?")
                         .font(.system(size: 33))
                         .multilineTextAlignment(.center)
@@ -112,6 +122,7 @@ struct MainView: View {
                 }
                 .padding()
                 .onAppear(perform: checkVisible)
+                .onAppear(perform: self.viewModel.fetchData)
                 
             }
             .tag(0)
@@ -119,26 +130,33 @@ struct MainView: View {
                 Label("Home", systemImage: "house")
             }
             
-            VStack(alignment: .center, spacing: 0) {
+            VStack(alignment: .center) {
                 
-                    
-                    Text("About").font(.system(size: 33))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 0.0)
-                    
-                    Spacer()
-                        .frame(height: 50)
-                    
-                    Text("This is an application I built to help understand some of the basics for developing in swift.")
-                        .padding(.horizontal, 25.0)
-                    
                 
+                
+                Text("About")
+                    .font(.system(size: 33))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 0.0)
+
+                Spacer()
+                    .frame(height: 50.0)
+                
+                VStack {
+                        ForEach(viewModel.uiTextNodes) { uiTextNode in
+                            Text(uiTextNode.description).font(.title).multilineTextAlignment(.leading).padding([.top, .leading], 10.0)
+                        }
+                }
+                
+
+                
+                Spacer()
+
             }
             .tag(1)
             .tabItem {
                 Label("About", systemImage: "gearshape")
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
         }
     }
 }
