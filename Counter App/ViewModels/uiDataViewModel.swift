@@ -26,8 +26,6 @@ class uiDataViewModel: ObservableObject {
                 let data = queryDocumentSnapshot.data()
                 let key = data["key"] as? String ?? ""
                 let description = data["description"] as? String ?? ""
-                
-                print(description)
 
                 return UIData(description: description, key: key)
             }

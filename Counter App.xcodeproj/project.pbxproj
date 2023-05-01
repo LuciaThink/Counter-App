@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF286A3A2A0002660006B3DC /* countData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF286A392A0002660006B3DC /* countData.swift */; };
+		DF286A3C2A0002850006B3DC /* countDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF286A3B2A0002850006B3DC /* countDataViewModel.swift */; };
 		DFD35D4429FECBF300C2876B /* Counter_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD35D4329FECBF300C2876B /* Counter_AppApp.swift */; };
 		DFD35D4629FECBF300C2876B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD35D4529FECBF300C2876B /* MainView.swift */; };
 		DFD35D4829FECBF400C2876B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFD35D4729FECBF400C2876B /* Assets.xcassets */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DF286A392A0002660006B3DC /* countData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countData.swift; sourceTree = "<group>"; };
+		DF286A3B2A0002850006B3DC /* countDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = countDataViewModel.swift; sourceTree = "<group>"; };
 		DFD35D4029FECBF300C2876B /* Counter App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Counter App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFD35D4329FECBF300C2876B /* Counter_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter_AppApp.swift; sourceTree = "<group>"; };
 		DFD35D4529FECBF300C2876B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				DFD35D7629FF72FF00C2876B /* uiData.swift */,
+				DF286A392A0002660006B3DC /* countData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				DFD35D7929FF737400C2876B /* uiDataViewModel.swift */,
+				DF286A3B2A0002850006B3DC /* countDataViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -300,6 +306,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFD35D7A29FF737400C2876B /* uiDataViewModel.swift in Sources */,
+				DF286A3C2A0002850006B3DC /* countDataViewModel.swift in Sources */,
+				DF286A3A2A0002660006B3DC /* countData.swift in Sources */,
 				DFD35D7429FF72BE00C2876B /* appViewModel.swift in Sources */,
 				DFD35D4629FECBF300C2876B /* MainView.swift in Sources */,
 				DFD35D4429FECBF300C2876B /* Counter_AppApp.swift in Sources */,

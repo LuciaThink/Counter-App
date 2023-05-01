@@ -31,6 +31,8 @@ struct MainView: View {
     @State private var minValue: Double = 0
     @State private var maxValue: Double = 100.0
     @State private var selectedTabIndex = 0
+    @ObservedObject private var viewModel = uiDataViewModel()
+    @ObservedObject private var countModel = countDataViewModel()
 
     func changeCount(direction: String) {
         
@@ -46,10 +48,14 @@ struct MainView: View {
         
         playSound()
         checkVisible()
+        updateDatabase()
+    }
+    
+    func updateDatabase() {
+        countModel.updateData(value: count)
     }
     
     func checkVisible(){
-        print(viewModel)
         if count == 100.00 {
             showText = true
         } else {
@@ -62,18 +68,9 @@ struct MainView: View {
         playSound()
     }
     
-    @ObservedObject private var viewModel = uiDataViewModel()
-    
-    
-   
-    
+
     var body: some View {
-        
-        
-        
         TabView() {
-        
-            
             VStack {
                 VStack(alignment: .center) {
                     
@@ -123,6 +120,14 @@ struct MainView: View {
                 .padding()
                 .onAppear(perform: checkVisible)
                 .onAppear(perform: self.viewModel.fetchData)
+                .onAppear(perform: self.countModel.fetchData)
+                .onReceive(countModel.$countData) { data in
+                    if data.count > 0  {
+                        count = Double(data[0].count)
+                        print(data[0].count)
+                    }
+                }
+                
                 
             }
             .tag(0)
@@ -131,8 +136,6 @@ struct MainView: View {
             }
             
             VStack(alignment: .center) {
-                
-                
                 
                 Text("About")
                     .font(.system(size: 33))
